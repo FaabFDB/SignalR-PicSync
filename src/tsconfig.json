@@ -1,6 +1,0 @@
-﻿{
-  "compilerOptions": {
-    "target": "ES5",
-    "downlevelIteration": true
-  }
-}

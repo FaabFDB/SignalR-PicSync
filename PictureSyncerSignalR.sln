@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureSyncerSignalR", "PictureSyncerSignalR.csproj", "{5A5B716D-0363-4B4C-9B62-70EF46CE50BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureSyncerSignalR", "PictureSyncerSignalR\PictureSyncerSignalR.csproj", "{5A5B716D-0363-4B4C-9B62-70EF46CE50BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
