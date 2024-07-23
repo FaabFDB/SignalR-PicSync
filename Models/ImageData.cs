@@ -1,6 +1,6 @@
 ﻿namespace PictureSyncerSignalR.Models;
 
-public class ImageMessage
+public class ImageData
 {
     public byte[]? ImageBinary { get; set; }
     public string ImageHeader { get; set; } = string.Empty;

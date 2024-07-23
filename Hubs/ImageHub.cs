@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using PictureSyncerSignalR.Models;
 
 namespace PictureSyncerSignalR.Hubs;
 
 public class ImageHub : Hub
 {
     
-    public async Task UploadImage(byte[] fileData, string fileName)
+    public async Task UploadImage(byte[] fileData, string fileType, string fileName)
     {
-        var base64Image = Convert.ToBase64String(fileData);
-        
-        await Clients.All.SendAsync("ReceiveImage", base64Image, fileName);
+        await Clients.All.SendAsync("ReceiveImage", fileData, fileName);
     }
 }

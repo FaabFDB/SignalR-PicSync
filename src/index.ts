@@ -1,4 +1,5 @@
 ﻿import * as signalR from "@microsoft/signalr";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Create connection
 const connection = new signalR.HubConnectionBuilder()
@@ -8,37 +9,31 @@ const connection = new signalR.HubConnectionBuilder()
 // Start the connection
 connection.start().catch(err => console.error(err.toString()));
 
-// Handle receiving the image
-connection.on("ReceiveImage", (base64Image: string, fileName: string) => {
+connection.on("ReceiveImage", function (imageBinary: ArrayBuffer, imageHeader: string) {
     const img = document.createElement("img");
-    img.src = `data:image/png;base64,${base64Image}`;
-    img.alt = fileName;
-    document.getElementById("imagesContainer")?.appendChild(img);
+    img.src = imageHeader + imageBinary;
+    img.className += "col";
+    img.style.width = '15%';
+    img.style.height = 'auto';
+    
+    document.getElementById("imageRow").appendChild(img);
 });
 
-// Upload image function
-async function uploadImage(file: File) {
-    const reader = new FileReader();
+// Handle receiving the image
+document.getElementById("uploadButton").addEventListener("click", function () {
+    const files = (<HTMLInputElement>document.getElementById("fileInput")).files;
+    const formData = new FormData();
 
-    reader.onload = async (event) => {
-        const arrayBuffer = event.target?.result as ArrayBuffer;
-        const byteArray = new Uint8Array(arrayBuffer);
-
-        try {
-            await connection.invoke("UploadImage", byteArray, file.name);
-            console.log("Image uploaded successfully.");
-        } catch (err) {
-            console.error("Error uploading image: ", err);
-        }
-    };
-
-    reader.readAsArrayBuffer(file);
-}
-
-// Event listener for file input
-document.getElementById("fileInput")?.addEventListener("change", (event) => {
-    const target = event.target as HTMLInputElement;
-    if (target.files && target.files[0]) {
-        uploadImage(target.files[0]);
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
     }
+
+    fetch('/api/fileupload/files', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to upload files");
+        }
+    }).catch(error => console.error('Error:', error));
 });

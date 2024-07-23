@@ -6,24 +6,21 @@ using PictureSyncerSignalR.Models;
 namespace PictureSyncerSignalR.controllers;
 
 [Route("api/[controller]")]
-public class FileController : Controller
+public class FileUploadController : Controller
 {
     private readonly IHubContext<ImageHub> _hubContext;
 
-    public FileController(IHubContext<ImageHub> hubContext)
+    public FileUploadController(IHubContext<ImageHub> hubContext)
     {
         _hubContext = hubContext;
     }
 
     [Route("files")]
     [HttpPost]
-    // [ServiceFilter(typeof(ValidateAntiForgeryTokenAttribute))]
     public async Task<IActionResult> UploadFiles(List<IFormFile> files)
     {
         if (ModelState.IsValid)
         {
-            // long size = files.Sum(f => f.Length);
-
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
@@ -31,17 +28,17 @@ public class FileController : Controller
                     using var memoryStream = new MemoryStream();
                     await formFile.CopyToAsync(memoryStream);
 
-                    var imageMessage = new ImageMessage
+                    var imageMessage = new ImageData()
                     {
-                        ImageHeader = "data:" + formFile.ContentType + ";base64,",
-                        ImageBinary = memoryStream.ToArray()
+                        ImageBinary = memoryStream.ToArray(),
+                        ImageHeader = "data:" + formFile.ContentType + ";base64,"
                     };
 
-                    await _hubContext.Clients.All.SendAsync("ImageMessage", imageMessage);
+                    await _hubContext.Clients.All.SendAsync("ReceiveImage", imageMessage.ImageBinary, imageMessage.ImageHeader);
                 }
             }
         }
 
-        return Redirect("/FileClient/Index");
+        return Ok();
     }
 }
