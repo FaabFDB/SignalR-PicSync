@@ -32,7 +32,8 @@ connection.start()
         
         const qrParent = document.getElementById('cont-qrcode');
         const textNode = document.createElement('a');
-        textNode.href = "https://localhost:44397" + "/mobileIndex.html?destId=" + connection.connectionId;
+        // textNode.href = "https://localhost:44397" + "/mobileIndex.html?destId=" + connection.connectionId;
+        textNode.href = url;
         textNode.text = "Test Link";
         qrParent.appendChild(textNode);
         
