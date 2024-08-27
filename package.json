@@ -24,8 +24,12 @@
   "dependencies": {
     "@angular/core": "^18.0.2",
     "@microsoft/signalr": "^8.0.7",
+    "@types/bootstrap": "^5.2.10",
+    "@types/jquery": "^3.5.30",
     "@types/node": "^20.14.11",
-    "bootstrap": "^5.3.3"
+    "@types/qrcode": "^1.5.5",
+    "bootstrap": "^5.3.3",
+    "qrcode": "^1.5.3"
   },
   "description": ""
 }

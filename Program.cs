@@ -5,7 +5,7 @@ var services = builder.Services;
 
 // Builder services
 services.AddSignalR();
-services.AddControllers();
+// services.AddControllers();
 
 
 var app = builder.Build();
@@ -17,6 +17,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapHub<ImageHub>("/imageHub");
-app.MapControllers();
+// app.MapControllers();
 
 app.Run();

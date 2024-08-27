@@ -1,3 +1,25 @@
-﻿#imageRow {
-    
+﻿.delete-btn {
+    position: absolute;
+    top: auto;
+    left: 5%;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.col-2 {
+    position: relative;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
